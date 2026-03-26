@@ -1,30 +1,44 @@
 import React from "react";
-import "./welcomePage.css";
-import Style from "../Components/Admin/CreateEvent.module.css";
+import "./WelcomePage.css";
 
 const WelcomePage = () => {
   return (
-    <>
-      <main className={`min-vh-100 ${Style.hero} d-flex justify-content-center align-items-center`}>
-        <div className={`mt-5 container ${Style.welcome}`}>
-          <h1 className="text-white display-2 fw-bold mt-5 text-shadow-sm">
-            <span className="text-success ">Welcome to EventTrackPro</span>
-            <span className="">
-              <h4 className="display-6 fw-bold text-shadow-sm">
-                - Your Modern Solution for Event Head Count Management!
-                EventTrackPro is a cutting-edge application designed to
-                streamline the process of tracking head counts at events,
-                eliminating the need for manual record-keeping. With our
-                innovative QR-code technology, users can effortlessly add
-                counters to events, record attendance, and submit data with
-                ease.
-              </h4>
-            </span>
-            <blockquote className="blockquote text-light fs-1"></blockquote>
+    <main className="hero-section">
+      <div className="hero-container">
+        <div className="hero-content">
+          <h1 className="hero-title">
+            Welcome to <span className="gradient-text">EventTrackPro</span>
           </h1>
+          <p className="hero-subtitle">
+            Your Modern Solution for Event Head Count Management
+          </p>
+          <p className="hero-description">
+            EventTrackPro is a cutting-edge application designed to streamline
+            the process of tracking head counts at events, eliminating the need
+            for manual record-keeping. With our innovative QR-code technology,
+            users can effortlessly add counters to events, record attendance,
+            and submit data with ease.
+          </p>
+          <div className="hero-features">
+            <div className="feature-item">
+              <div className="feature-icon">📊</div>
+              <h3>Real-Time Tracking</h3>
+              <p>Monitor attendance in real-time with instant updates</p>
+            </div>
+            <div className="feature-item">
+              <div className="feature-icon">🎫</div>
+              <h3>QR Code Technology</h3>
+              <p>Effortless check-ins using QR code scanning</p>
+            </div>
+            <div className="feature-item">
+              <div className="feature-icon">📱</div>
+              <h3>Mobile Friendly</h3>
+              <p>Access from any device, anywhere, anytime</p>
+            </div>
+          </div>
         </div>
-      </main>
-    </>
+      </div>
+    </main>
   );
 };
 
