@@ -1,6 +1,5 @@
 
 import { useNavigate } from "react-router-dom";
-import countlogo from "../multimedia/attendance-logo1.jpeg";
 import "./Navbar.css";
 
 const Navbar = () => {
@@ -15,7 +14,7 @@ const Navbar = () => {
     <nav className="navbar-modern">
       <div className="navbar-container">
         <a href="/" className="navbar-logo">
-          <img src={countlogo} alt="EventTrackPro" className="navbar-logo-img" />
+          <img src="/attendance-logo1.jpeg" alt="EventTrackPro" className="navbar-logo-img" />
           <span className="navbar-logo-text">EventTrackPro</span>
         </a>
         <button
