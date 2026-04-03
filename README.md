@@ -1,96 +1,230 @@
-# React + Vite
+# EventTrackPro 2.0
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-# EventTrackPro
-
-An intuitive event counting platform where users register and obtain QR codes to be designated as **Event Admins**, **Count Coordinators**, or **Counters**. Admins create events and assign roles via QR scans; coordinators manage counters and review counts, while counters manually submit counts. Built with React (Vite), Express, MongoDB, and Node.js.
-
----
-
-##  Table of Contents
-
-- [Features](#features)  
-- [Architecture & Stack](#architecture--stack)  
-- [User Roles & Workflow](#user-roles--workflow)  
-- [Getting Started](#getting-started)  
-- [Usage Guide](#usage-guide)  
-- [Configuration & Environment](#configuration--environment)  
-- [Technologies Used](#technologies-used)  
-- [Project Roadmap](#project-roadmap)  
-- [Contributing](#contributing)  
-- [License](#license)
-
----
+A modern, professional event tracking and counting platform built with Next.js 15, TypeScript, and Tailwind CSS. Features role-based access control for administrators, coordinators, and counters with real-time submission tracking and QR code management.
 
 ## Features
 
-- **User Registration**: Mandatory signup to access any functionality.
-- **Dynamic Role Assignment**: Upon role registration, users download QR codes that admins scan to assign roles.
-- **Event Lifecycle**:
-  - Admins create and start events.
-  - Coordinators assign counters to service indices, approve/reject count submissions.
-  - Counters submit manual counts which are reviewed and escalated by coordinators to admins.
-- **QR-Based Role Management**: Streamlined assignment of roles through QR code scanning.
-- **Manual Count Submission**: Easy submission and tracking of counts via coordinator and admin approval flow.
+### For Event Administrators
+- Create and manage events with multiple counting services
+- Assign counters to events with QR code generation
+- Review all submissions in real-time
+- View comprehensive event statistics and reports
+- Manage coordinator teams and permissions
 
----
+### For Count Coordinators
+- Monitor counter activity and submissions
+- Review and approve/reject count submissions
+- Track submission status in real-time
+- Coordinate between administrators and counters
 
-## Architecture & Stack
+### For Counters
+- Submit attendance and count data
+- Track submission status and approval history
+- View assigned events and services
+- Access unique QR code for event registration
+- Get instant feedback on submissions
 
-| Layer           | Technology           |
-|----------------|----------------------|
-| **Frontend**    | React with Vite      |
-|                | react-qrcode         |
-| **Backend**     | Node.js, Express     |
-| **Database**    | MongoDB (via Mongoose) |
-| **Miscellaneous** | dotenv, CORS, JSON Web Tokens (potentially) |
+## Tech Stack
 
+- **Framework**: Next.js 15+ with App Router
+- **Language**: TypeScript
+- **UI Components**: shadcn/ui with Radix UI
+- **Styling**: Tailwind CSS
+- **State Management**: Redux Toolkit
+- **Forms**: Formik + Yup
+- **QR Codes**: react-qr-code + html5-qrcode
+- **HTTP Client**: Axios
+- **Icons**: Lucide React
 
----
+## Project Structure
 
-## User Roles & Workflow
-
-1. **Registration**: Users sign up, then choose to register as:
-   - **Admin**
-   - **Count Coordinator**
-   - **Counter**
-2. **QR Code Issuance**: All registrants receive a downloadable QR code.
-3. **Role Assignment**:
-   - **Admins** scan a user’s QR code to officially assign them as coordinator or counter for an event.
-4. **Event Management**:
-   - Admins create and launch events on the scheduled date.
-5. **Counter Workflow**:
-   - Coordinators assign counters to specific service indices.
-   - Counters submit manual counts.
-   - Coordinators can approve or reject submissions.
-   - Approved counts are then forwarded to admins.
-
----
+```
+eventtrackpro/
+├── app/
+│   ├── auth/
+│   │   ├── login/[role]/          # Login pages
+│   │   ├── register/[role]/       # Registration pages
+│   │   └── select-role/           # Role selection
+│   ├── dashboard/
+│   │   ├── admin/                 # Admin dashboard
+│   │   │   ├── page.tsx           # Main dashboard
+│   │   │   ├── create-event/      # Create event form
+│   │   │   ├── event/[id]/        # Event details
+│   │   │   ├── manage-counters/   # Counter management
+│   │   │   ├── scan-qr/           # QR scanner
+│   │   │   └── layout.tsx         # Admin layout
+│   │   ├── coordinator/           # Coordinator dashboard
+│   │   └── counter/               # Counter dashboard
+│   │       ├── submit/[eventId]/  # Count submission
+│   │       ├── my-qr/             # QR display
+│   │       └── page.tsx           # Main dashboard
+│   ├── globals.css                # Global styles
+│   ├── layout.tsx                 # Root layout
+│   └── page.tsx                   # Landing page
+├── components/
+│   ├── ui/                        # shadcn/ui components
+│   ├── admin/                     # Admin-specific components
+│   │   ├── sidebar.tsx
+│   │   └── header.tsx
+│   └── qr/                        # QR-related components
+│       └── qr-display.tsx
+├── lib/
+│   └── utils.ts                   # Utility functions
+├── public/                        # Static assets
+└── package.json
+```
 
 ## Getting Started
 
 ### Prerequisites
-
-- Node.js (v16+)
-- npm or yarn
-- MongoDB (local or Atlas)
+- Node.js 18+ 
+- npm, yarn, pnpm, or bun
 
 ### Installation
 
+1. **Install dependencies**
 ```bash
-# Clone the repo
-git clone https://github.com/AbiolaDave/eventtrackpro.git
-cd eventtrackpro
-
-# Install backend dependencies
-cd backend
 npm install
+# or
+yarn install
+pnpm install
+bun install
+```
+
+2. **Run development server**
+```bash
+npm run dev
+```
+
+3. **Open in browser**
+Navigate to [http://localhost:3000](http://localhost:3000)
+
+## Usage
+
+### Landing Page
+Start at the home page to learn about EventTrackPro and understand the platform features.
+
+### Role Selection
+Choose your role to proceed with authentication:
+- **Event Administrator**: Manage events and counters
+- **Count Coordinator**: Review submissions
+- **Counter**: Submit counts
+
+### Authentication
+Register or login with your role. Demo credentials are provided in the login form.
+
+### Admin Workflow
+1. Create a new event with counting services
+2. Scan counter QR codes to register them
+3. Assign counters to events
+4. Monitor submissions in real-time
+5. Review and approve counts
+
+### Coordinator Workflow
+1. View pending submissions
+2. Review count details
+3. Approve or request revisions
+4. Monitor counter activity
+
+### Counter Workflow
+1. View assigned events
+2. Download/display your unique QR code
+3. Submit counts for each event
+4. Track submission status
+5. View approval feedback
+
+## Key Components
+
+### Admin Sidebar
+- Quick navigation to all admin functions
+- Real-time status indicators
+- User profile and sign out
+
+### Dashboard Cards
+- Statistics overview
+- Activity tracking
+- Status indicators
+
+### Forms
+- Event creation with multiple services
+- Count submission with validation
+- Inline validation and error feedback
+
+### QR System
+- Counter identification via QR codes
+- Download QR codes as PNG
+- Manual fallback input option
+- Camera scanning support
+
+## API Integration Points
+
+The application is designed to work with a backend API. Integration points include:
+
+- **Authentication**: User login/registration
+- **Event Management**: Create, read, update events
+- **Counter Management**: Register, assign, manage counters
+- **Submissions**: Submit and review counts
+- **QR Codes**: Generate and validate QR codes
+
+Update API endpoints in `lib/api.ts` once backend is available.
+
+## Customization
+
+### Colors & Theme
+Edit design tokens in:
+- `tailwind.config.ts` - Color definitions
+- `app/globals.css` - CSS variables
+
+### Typography
+Fonts are configured in:
+- `app/layout.tsx` - Font imports
+- `tailwind.config.ts` - Font family classes
+
+### Components
+All UI components are in `components/ui/` and can be customized to match your branding.
+
+## Development
+
+### Building
+```bash
+npm run build
+```
+
+### Production
+```bash
+npm run start
+```
+
+## Best Practices
+
+1. **Type Safety**: All components use TypeScript for better type checking
+2. **Accessibility**: Components follow WCAG 2.1 AA standards
+3. **Performance**: Uses Next.js optimizations and lazy loading
+4. **Mobile First**: Responsive design that works on all devices
+5. **Security**: Client-side form validation and error handling
+
+## Future Enhancements
+
+- Real-time WebSocket updates for live submission tracking
+- Advanced filtering and search capabilities
+- Batch operations for managing multiple counters
+- Export reports to CSV/PDF
+- Email notifications for submissions
+- Dark mode support
+- Multi-language support
+- Analytics dashboard with charts
+
+## License
+
+Proprietary - All rights reserved
+
+## Support
+
+For issues or questions, please contact the development team or open an issue in the repository.
+
+---
+
+Built with passion for event management efficiency.
 
 # Install frontend dependencies
 cd ../frontend
